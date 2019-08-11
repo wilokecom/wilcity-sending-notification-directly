@@ -167,7 +167,7 @@ function wilcitySNDParseNotification($aParseData, $lastSendTo = 0)
                 );
             }
 
-            $query .= " ORDER BY date ASC LIMIT 10";
+            $query .= " ORDER BY date ASC LIMIT 50";
 
             $aRawFollowingIDs = $wpdb->get_results($query);
             if (!empty($aRawFollowingIDs) && !is_wp_error($aRawFollowingIDs)) {
@@ -189,7 +189,7 @@ function wilcitySNDParseNotification($aParseData, $lastSendTo = 0)
                     $lastSendTo
                 );
             }
-            $query     .= " ORDER BY ID ASC LIMIT 10";
+            $query     .= " ORDER BY ID ASC LIMIT 50";
             $aRawUsers = $wpdb->get_results($query);
 
             if (!empty($aRawUsers) && !is_wp_error($aRawUsers)) {
@@ -359,7 +359,7 @@ add_action('wp_ajax_wilcity_snd_search_user', function () {
     global $wpdb;
     $aUsers = $wpdb->get_results(
         $wpdb->prepare(
-            "SELECT user_login FROM $wpdb->users WHERE user_login LIKE %s ORDER BY ID ASC LIMIT 10",
+            "SELECT user_login FROM $wpdb->users WHERE user_login LIKE %s ORDER BY ID ASC LIMIT 50",
             '%'.trim($_GET['search']).'%'
         ),
         ARRAY_A
@@ -467,7 +467,9 @@ add_action('wiloke-listing-tools/run-extension', function () {
                     </div>
                 <?php endif; ?>
                 <?php
-            }
+            },
+            'dashicons-awards',
+            20
         );
     });
 
